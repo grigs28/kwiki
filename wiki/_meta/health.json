@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-04-16T06:52:40.157630+00:00",
+  "results": {
+    "structural": [
+      "Missing master index file (_index.md)",
+      "Missing JSON index (index.json)",
+      "No articles in the wiki"
+    ],
+    "broken_links": [],
+    "orphans": [
+      "Backlinks map not built yet"
+    ],
+    "missing_metadata": [],
+    "dirty_tags": [],
+    "duplicates": [],
+    "stubs": [],
+    "uncategorized": [],
+    "total_issues": 4
+  },
+  "fixes_applied": []
+}

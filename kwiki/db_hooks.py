@@ -9,12 +9,12 @@ logger = logging.getLogger("kwiki.db_hooks")
 
 # 标准号提取正则（国标/行标/地标/团标）
 STD_CODE_RE = re.compile(
-    r'((?:GB|JGJ|DL|T\C|CJJ|QX|GBZ|CECS|JB|JG|JTJ|QB|WS)\s*\d+(?:[/\-\.]\d+)*)',
+    r'((?:GB|JGJ|DL|TC|CJJ|QX|GBZ|CECS|JB|JG|JTJ|QB|WS)\s*\d+(?:[/\-\.]\d+)*)',
     re.IGNORECASE
 )
 LEVEL_MAP = {
     "GB": "国家标准", "GB/T": "国家标准", "GBZ": "国家标准",
-    "JGJ": "行业标准", "DL": "电力行业标准", "T/C": "团体标准",
+    "JGJ": "行业标准", "DL": "电力行业标准", "TC": "团体标准",
     "CJJ": "城建行业标准", "QB": "轻工行业标准",
     "JG": "建筑行业标准", "JB": "机械行业标准",
 }

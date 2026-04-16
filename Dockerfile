@@ -18,7 +18,9 @@ RUN pip install --no-cache-dir -r requirements.txt gunicorn psycopg2-binary
 # 复制 kwiki 定制代码
 COPY kwiki/ ./kwiki/
 COPY custom/ ./custom/
-COPY startup.py .
+COPY startup.py ./
+COPY wsgi_web.py ./
+COPY wsgi_agent.py ./
 COPY config.yaml .
 
 # 创建数据目录
