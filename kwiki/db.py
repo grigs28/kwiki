@@ -16,8 +16,6 @@ for _p in [Path(__file__).parent.parent, Path.cwd()]:
         break
 
 import psycopg2
-from psycopg2.extras import execute_values
-from psycopg2.extras import execute_values
 
 POOL = None  # 简单连接池（按需创建）
 
