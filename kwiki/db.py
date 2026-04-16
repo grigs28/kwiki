@@ -27,6 +27,7 @@ def get_connection():
         dbname=os.getenv("KWIKI_DB_NAME", "kwiki"),
         user=os.getenv("KWIKI_DB_USER", "grigs"),
         password=os.getenv("KWIKI_DB_PASSWORD", ""),
+        connect_timeout=5,
     )
 
 

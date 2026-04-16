@@ -27,3 +27,16 @@ health:
 
 lint:
   web_search: false
+
+branding:
+  name: "KWiki"
+  name_short: "K"
+  tagline: "工程设计标准知识库"
+  powered_by_label: "Powered by LLMBase"
+  powered_by_url: "https://github.com/Hosuke/llmbase"
+
+auth:
+  enabled: true           # true = 需要登录, false = 不登录模式
+  secret_key: "kwiki-session-secret-2026"
+  yz_login_url: "http://192.168.0.19:5555"
+  callback_url: ""        # 留空自动检测

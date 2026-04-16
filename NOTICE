@@ -1,0 +1,12 @@
+KWiki - 工程设计标准知识库
+基于 LLMBase (https://github.com/Hosuke/llmbase) 深度定制
+
+本项目使用以下开源组件：
+- LLMBase: MIT License
+- Flask: BSD-3-Clause
+- psycopg2: LGPL-3.0
+- React: MIT License
+- Tailwind CSS: MIT License
+- Vite: MIT License
+
+数据库: OpenGauss-lite 7.0.0 (Mulan PSL v2)

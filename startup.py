@@ -15,6 +15,15 @@ except Exception as e:
     print(f"[startup] custom.patches 加载失败: {e}")
     import traceback; traceback.print_exc()
 
+# ── 读取配置 ────────────────────────────────────────
+import yaml
+_config_path = Path(__file__).parent / "config.yaml"
+_config = {}
+if _config_path.exists():
+    with open(_config_path) as f:
+        _config = yaml.safe_load(f) or {}
+_auth_config = _config.get("auth", {})
+
 # ── 初始化数据库 ────────────────────────────────────
 from kwiki.db import init_db
 try:
@@ -22,6 +31,9 @@ try:
     print("[startup] 数据库初始化成功")
 except Exception as e:
     print(f"[startup] 数据库初始化失败（可能已存在）: {e}")
+
+# ── 认证模块 ────────────────────────────────────────
+from kwiki.auth import register_auth
 
 # ── 启动 Worker ─────────────────────────────────────
 def run_worker():
@@ -40,7 +52,11 @@ def run_web():
 
     base = Path(__file__).parent
     app = create_web_app(base)
-    print("[startup] 启动 Web UI: 0.0.0.0:5551")
+
+    # 注册认证模块
+    register_auth(app, _auth_config)
+
+    print(f"[startup] 启动 Web UI: 0.0.0.0:5551 (auth={'开启' if _auth_config.get('enabled') else '关闭'})")
     run_simple("0.0.0.0", 5551, app, threaded=True, use_debugger=False, use_reloader=False)
 
 # ── 启动 Agent API (5552) ─────────────────────────
@@ -50,7 +66,11 @@ def run_agent():
 
     base = Path(__file__).parent
     app = create_agent_server(base, port=5552)
-    print("[startup] 启动 Agent API: 0.0.0.0:5552")
+
+    # 注册认证模块
+    register_auth(app, _auth_config)
+
+    print(f"[startup] 启动 Agent API: 0.0.0.0:5552")
     run_simple("0.0.0.0", 5552, app, threaded=True, use_debugger=False, use_reloader=False)
 
 if __name__ == "__main__":

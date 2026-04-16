@@ -7,16 +7,16 @@ from kwiki.db import insert_or_update_standard
 
 logger = logging.getLogger("kwiki.db_hooks")
 
-# 标准号提取正则（国标/行标/地标/团标）
+# 标准号提取正则（国标/行标/地标/团标，支持 /T 变体）
 STD_CODE_RE = re.compile(
-    r'((?:GB|JGJ|DL|TC|CJJ|QX|GBZ|CECS|JB|JG|JTJ|QB|WS)\s*\d+(?:[/\-\.]\d+)*)',
+    r'((?:GB/Z?|JGJ|DL(?:/T)?|T/C|CJJ(?:/T)?|QX|CECS|JB|JG|JTJ|QB|WS)\s*\d+(?:[/\-\.]\d+)*)',
     re.IGNORECASE
 )
 LEVEL_MAP = {
-    "GB": "国家标准", "GB/T": "国家标准", "GBZ": "国家标准",
-    "JGJ": "行业标准", "DL": "电力行业标准", "TC": "团体标准",
-    "CJJ": "城建行业标准", "QB": "轻工行业标准",
-    "JG": "建筑行业标准", "JB": "机械行业标准",
+    "GB/T": "国家标准", "GBZ": "国家标准", "GB": "国家标准",
+    "JGJ": "行业标准", "DL/T": "电力行业标准", "DL": "电力行业标准",
+    "T/C": "团体标准", "CJJ/T": "城建行业标准", "CJJ": "城建行业标准",
+    "QB": "轻工行业标准", "JG": "建筑行业标准", "JB": "机械行业标准",
 }
 TYPE_TAGS = {
     "绿建": ["green"], "绿色建筑": ["green"], "节能": ["energy"],
@@ -35,7 +35,7 @@ def parse_std_code(title: str) -> tuple[str, str]:
         code = match.group(1).strip().replace(" ", "")
         code_upper = code.upper()
         for prefix, level in LEVEL_MAP.items():
-            if code_upper.startswith(prefix.replace("/T", "/t").replace("GB", "GB")):
+            if code_upper.startswith(prefix.upper()):
                 return code, level
         return code, ""
     return "", ""
