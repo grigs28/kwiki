@@ -1,0 +1,29 @@
+llm:
+  max_tokens: 16384
+
+paths:
+  raw: "./raw"
+  wiki: "./wiki"
+  outputs: "./wiki/outputs"
+  meta: "./wiki/_meta"
+  concepts: "./wiki/concepts"
+
+compile:
+  batch_size: 5
+  backlinks: true
+
+worker:
+  enabled: true
+  learn_interval_hours: 0
+  compile_interval_hours: 1
+  taxonomy_interval_hours: 12
+  health_check_interval_hours: 24
+  learn_batch_size: 5
+  learn_source: none
+
+health:
+  auto_fix_broken_links: true
+  max_stubs_per_run: 10
+
+lint:
+  web_search: false

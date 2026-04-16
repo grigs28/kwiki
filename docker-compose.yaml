@@ -1,0 +1,21 @@
+services:
+  kwiki:
+    build: .
+    container_name: kwiki
+    ports:
+      - "5551:5551"
+      - "5552:5552"
+    volumes:
+      - ./raw:/app/raw
+      - ./wiki:/app/wiki
+      - ./config.yaml:/app/config.yaml
+      - ./custom:/app/custom
+    env_file:
+      - .env
+    environment:
+      - KWIKI_DB_HOST=${KWIKI_DB_HOST}
+      - KWIKI_DB_PORT=${KWIKI_DB_PORT}
+      - KWIKI_DB_NAME=${KWIKI_DB_NAME}
+      - KWIKI_DB_USER=${KWIKI_DB_USER}
+      - KWIKI_DB_PASSWORD=${KWIKI_DB_PASSWORD}
+    restart: unless-stopped
